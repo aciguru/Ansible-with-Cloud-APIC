@@ -1,0 +1,20 @@
+---
+  
+# Creation of Tenant to Cloud APIC using REST APIs
+- name: Testing Ansible using REST to create configurations in Cloud APIC
+  hosts: apic
+  connection: local
+  gather_facts: no
+
+  tasks:
+  - name: Add a tenant using an XML string
+    aci_rest:
+     hostname: "{{ host }}"
+     username: "{{ user }}"
+     password: "{{ pass }}"
+     validate_certs: no
+     path: /api/mo/uni/tn-[aciguruDemo].xml
+     method: post
+     content: |
+       <fvTenant name="aciguruDemo" descr="Apoorva test tenant created by Ansible"/>
+    delegate_to: localhost
